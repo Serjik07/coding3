@@ -21,6 +21,7 @@ class LinkedLink {
            this.tail = data;
         }
     }
+    
     addAtStart(num) {
         let data = new Node(num);
         let newHead = this.head;
@@ -32,18 +33,29 @@ class LinkedLink {
             this.head.next = newHead;
          }
     }
+
+    removeAtStart() {
+        let newHead = this.head;  
+        if (this.head.next === null) {
+            this.head.data = null;
+        }
+        if (this.head.data) {
+            this.head = newHead.next;   
+        }
+    }
+
     remove() {
         if(!this.tail.next){
             debugger;
-            let vlod = this.head;
-            if (vlod.next === null) {
-                return null;
+            let newHead = this.head;
+            if (newHead.next === null) {
+                this.head.data = null;
+                return this.head;
             }
-            while(vlod.next !== this.tail){
-                vlod = vlod.next;
+            while(newHead.next !== this.tail){
+                newHead = newHead.next;
             }   
-            vlod.next = null;
-            return this.head;
+            newHead.next = null;
         }
     }
     print() {
@@ -57,8 +69,8 @@ x.add(2);
 x.add("t");
 x.add(10);
 x.add("g");
-// x.add(10);
-// x.remove();
+x.remove();
 x.addAtStart(1);
 x.addAtStart("Sle");
+x.removeAtStart()
 x.print();
