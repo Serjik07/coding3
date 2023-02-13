@@ -8,8 +8,7 @@ class Node {
 class LinkedLink {
     constructor(){
         this.head = null;
-        this.tail = null;
-        
+        this.tail = null;    
     }
 
     add(num) {
@@ -22,11 +21,20 @@ class LinkedLink {
            this.tail = data;
         }
     }
+    addAtStart(num) {
+        let data = new Node(num);
+        let newHead = this.head;
+        if(!this.head) {
+            this.head = data; 
+            this.tail = data;
+         } else {
+            this.head = data;
+            this.head.next = newHead;
+         }
+    }
     remove() {
         if(!this.tail.next){
             debugger;
-            // console.log(this.tail);
-            // console.log(this.head);
             let vlod = this.head;
             if (vlod.next === null) {
                 return null;
@@ -49,6 +57,8 @@ x.add(2);
 x.add("t");
 x.add(10);
 x.add("g");
-x.add(10);
-x.remove();
+// x.add(10);
+// x.remove();
+x.addAtStart(1);
+x.addAtStart("Sle");
 x.print();
