@@ -24,13 +24,13 @@ class LinkedLink {
     
     addAtStart(num) {
         let data = new Node(num);
-        let newHead = this.head;
+        console.log(data);
         if(!this.head) {
             this.head = data; 
             this.tail = data;
          } else {
-            this.head = data;
-            this.head.next = newHead;
+           data.next = this.head
+           this.head = data
          }
     }
 
@@ -59,7 +59,15 @@ class LinkedLink {
         }
     }
     print() {
-        console.log(this.head);
+        let current = this.head
+        let result = '['
+        while(current){
+            result+=current.data
+            result+=','
+            current = current.next
+        }
+        result+=']'
+        console.log(result)
     }
 }
 
@@ -69,8 +77,9 @@ x.add(2);
 x.add("t");
 x.add(10);
 x.add("g");
-x.remove();
 x.addAtStart(1);
 x.addAtStart("Sle");
-x.removeAtStart()
 x.print();
+
+//search
+//print [data,data,data]
