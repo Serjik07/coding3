@@ -9,15 +9,13 @@ var io = require('socket.io')(server);
 app.use(express.static("./modules"));
 
 app.get('/', function (req, res) {
-
-res.redirect('index.html');
-
+    res.redirect('index.html');
 });
 
 server.listen(3000);
 
 
-function generate(matLen,gr,grEat,pr,th,sn) {
+function generate(matLen, gr, grEat, pr, th, sn) {
     let matrix = [];
     for (let i = 0; i < matLen; i++) {
         matrix[i] = [];
@@ -27,41 +25,41 @@ function generate(matLen,gr,grEat,pr,th,sn) {
     }
 
     for (let i = 0; i < gr; i++) {
-        let x = Math.floor(Math.random()*matLen);
-        let y = Math.floor(Math.random()*matLen);
-        if(matrix[y][x] == 0) {
+        let x = Math.floor(Math.random() * matLen);
+        let y = Math.floor(Math.random() * matLen);
+        if (matrix[y][x] == 0) {
             matrix[y][x] = 1;
         }
     }
     for (let i = 0; i < grEat; i++) {
-        let x = Math.floor(Math.random()*matLen);
-        let y = Math.floor(Math.random()*matLen);
-       // console.log(x,y);
-        if(matrix[y][x] == 0) {
+        let x = Math.floor(Math.random() * matLen);
+        let y = Math.floor(Math.random() * matLen);
+        // console.log(x,y);
+        if (matrix[y][x] == 0) {
             matrix[y][x] = 2;
-        } 
+        }
     }
     for (let i = 0; i < pr; i++) {
-        let x = Math.floor(Math.random()*matLen);
-        let y = Math.floor(Math.random()*matLen);
+        let x = Math.floor(Math.random() * matLen);
+        let y = Math.floor(Math.random() * matLen);
         //console.log(x,y);
-        if(matrix[y][x] == 0) {
+        if (matrix[y][x] == 0) {
             matrix[y][x] = 3;
         }
     }
     for (let i = 0; i < th; i++) {
-        let x = Math.floor(Math.random()*matLen);
-        let y = Math.floor(Math.random()*matLen);
+        let x = Math.floor(Math.random() * matLen);
+        let y = Math.floor(Math.random() * matLen);
         //console.log(x,y);
-        if(matrix[y][x] == 0) {
+        if (matrix[y][x] == 0) {
             matrix[y][x] = 4;
         }
     }
     for (let i = 0; i < sn; i++) {
-        let x = Math.floor(Math.random()*matLen);
-        let y = Math.floor(Math.random()*matLen);
+        let x = Math.floor(Math.random() * matLen);
+        let y = Math.floor(Math.random() * matLen);
         //console.log(x,y);
-        if(matrix[y][x] == 0) {
+        if (matrix[y][x] == 0) {
             matrix[y][x] = 5;
         }
     }
@@ -69,7 +67,7 @@ function generate(matLen,gr,grEat,pr,th,sn) {
 }
 
 
-matrix = generate(15,70,20,6,9,3)
+matrix = generate(15, 70, 20, 6, 9, 3)
 
 
 side = 30;
@@ -89,7 +87,7 @@ Snake = require('./modules/snake');
 
 
 function createObject(matrix) {
-console.log("asd")
+    console.log("asd")
     for (var y = 0; y < matrix.length; y++) {
         for (var x = 0; x < matrix[y].length; x++) {
 
@@ -112,23 +110,23 @@ console.log("asd")
         }
     }
 }
-function game(){
-    for(let i in grassArr){
+function game() {
+    for (let i in grassArr) {
         grassArr[i].mul();
-     }
-     for(let i in grassEaterArr) {
-         grassEaterArr[i].eat();
-     }
-     for(let i in predatorArr) {
+    }
+    for (let i in grassEaterArr) {
+        grassEaterArr[i].eat();
+    }
+    for (let i in predatorArr) {
         predatorArr[i].eat();
     }
-    for(let i in thornArr) {
+    for (let i in thornArr) {
         thornArr[i].mul();
     }
-    for(let i in snakeArr) {
+    for (let i in snakeArr) {
         snakeArr[i].eat();
     }
-    io.sockets.emit('send matrix',matrix);
+    io.sockets.emit('send matrix', matrix);
 }
 
 
@@ -136,8 +134,8 @@ function game(){
 
 
 
- setInterval(game, 1000)
- io.on('connection', function (socket) {
+setInterval(game, 1000)
+io.on('connection', function (socket) {
 
     createObject(matrix)
-    });
+});
