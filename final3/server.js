@@ -16,7 +16,7 @@ res.redirect('index.html');
 
 server.listen(3000);
 
-let staticObj = {};
+
 let grassNum = 0;
 let grassEaterNum = 0;
 let predatorNum = 0;
@@ -64,10 +64,11 @@ function static(mat) {
     snakeNum = 0;
     thornNum = 0;
 
+        return staticObj;
     // static(mat)
 }
 
-io.sockets.emit('send static', staticObj)
+// io.sockets.emit('send static', staticObj)
 
 function generate(matLen,gr,grEat,pr,th,sn) {
     let matrix = [];
@@ -189,9 +190,6 @@ function game(){
 
 
  setInterval(game, 1000);
-//  io.on("send matrix", () => {
-//     setTimeout(static(matrix), 3000)
-//  })
 
  io.on('connection', function (socket) {
     static(matrix);
