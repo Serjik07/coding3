@@ -9,7 +9,60 @@ let changeButton = document.querySelector("#change");
 const divs = document.querySelectorAll(".divs");
 console.log(divs)
 
+let matrix = [];
+function generate(matLen,gr,grEat,pr,th,sn) {
 
+    for (let i = 0; i < matLen; i++) {
+        matrix[i] = [];
+        for (let j = 0; j < matLen; j++) {
+            matrix[i][j] = 0;
+        }
+    }
+
+    for (let i = 0; i < gr; i++) {
+        let x = Math.floor(Math.random()*matLen);
+        let y = Math.floor(Math.random()*matLen);
+        if(matrix[y][x] == 0) {
+            matrix[y][x] = 1;
+        }
+    }
+    for (let i = 0; i < grEat; i++) {
+        let x = Math.floor(Math.random()*matLen);
+        let y = Math.floor(Math.random()*matLen);
+       // console.log(x,y);
+        if(matrix[y][x] == 0) {
+            matrix[y][x] = 2;
+        } 
+    }
+    for (let i = 0; i < pr; i++) {
+        let x = Math.floor(Math.random()*matLen);
+        let y = Math.floor(Math.random()*matLen);
+        //console.log(x,y);
+        if(matrix[y][x] == 0) {
+            matrix[y][x] = 3;
+        }
+    }
+    for (let i = 0; i < th; i++) {
+        let x = Math.floor(Math.random()*matLen);
+        let y = Math.floor(Math.random()*matLen);
+        //console.log(x,y);
+        if(matrix[y][x] == 0) {
+            matrix[y][x] = 4;
+        }
+    }
+    for (let i = 0; i < sn; i++) {
+        let x = Math.floor(Math.random()*matLen);
+        let y = Math.floor(Math.random()*matLen);
+        //console.log(x,y);
+        if(matrix[y][x] == 0) {
+            matrix[y][x] = 5;
+        }
+    }
+    return matrix;
+}
+
+
+matrix = generate(15,70,20,6,9,3)
 
 changeButton.addEventListener("click", changeWeather)
 function changeWeather() {
@@ -37,39 +90,95 @@ function changeInfo() {
     } else {
         divs[0].style.backgroundColor = "green"; 
         divs[1].style.backgroundColor = "yellow";
-        divs[2].style.backgroundColor = "black";
+        divs[2].style.backgroundColor = "red";
         divs[2].style.color = "black";
 
     }
 }
 
 
-function setup(staticObj) {
-    frameRate(5);
-    createCanvas(200* side, 200 * side);
+
+function createObject(matrix) {
+    for (var y = 0; y < matrix.length; y++) {
+        for (var x = 0; x < matrix[y].length; x++) {
+
+            if (matrix[y][x] == 1) {
+                let gr = new Grass(x, y);
+                grassArr.push(gr);
+            } else if (matrix[y][x] == 2) {
+                let gr = new GrassEater(x, y);
+                grassEaterArr.push(gr);
+            } else if (matrix[y][x] == 3) {
+                let gr = new Predator(x, y);
+                predatorArr.push(gr);
+            } else if (matrix[y][x] == 4) {
+                let gr = new Thorn(x, y);
+                thornArr.push(gr);
+            } else if (matrix[y][x] == 5) {
+                let gr = new Snake(x, y);
+                snakeArr.push(gr);
+            }
+        }
+    }
 }
 
-function draww(mat) {
-    if(document.body.style.backgroundColor === "yellow" || document.body.style.backgroundColor === "orange" || document.body.style.backgroundColor === "green") {
-        for (let y = 0; y < mat.length; y++) {
-            for (let x = 0; x < mat[y].length; x++) {
 
-                if (mat[y][x] == 1) {
+side = 30;
+grassArr = [];
+grassEaterArr = [];
+predatorArr = [];
+thornArr = [];
+snakeArr = [];
+
+
+function game(){
+    for(let i in grassArr){
+        grassArr[i].mul();
+     }
+     for(let i in grassEaterArr) {
+         grassEaterArr[i].eat();
+     }
+     for(let i in predatorArr) {
+        predatorArr[i].eat();
+    }
+    for(let i in thornArr) {
+        thornArr[i].mul();
+    }
+    for(let i in snakeArr) {
+        snakeArr[i].eat();
+    }
+}
+function setup(staticObj) {
+    frameRate(5);
+    var myCanvas = createCanvas(450, 450    );
+    myCanvas.parent("#canvas")
+}
+
+function draw() {
+    if(frameCount % 5 === 0) {
+        changeWeather()
+    }
+    createObject(matrix);
+    game();
+    if(document.body.style.backgroundColor === "yellow" || document.body.style.backgroundColor === "orange" || document.body.style.backgroundColor === "green") {
+        for (let y = 0; y < matrix.length; y++) {
+            for (let x = 0; x < matrix[y].length; x++) {
+                if (matrix[y][x] == 1) {
                     fill("green");
                 }
-                else if (mat[y][x] == 0) {
+                else if (matrix[y][x] == 0) {
                     fill("#acacac");
                 }
-                else if (mat[y][x] == 2) {
+                else if (matrix[y][x] == 2) {
                     fill("yellow");
                 }
-                else if (mat[y][x] == 3) {
+                else if (matrix[y][x] == 3) {
                     fill("red");
                 }
-                else if (mat[y][x] == 4) {
+                else if (matrix[y][x] == 4) {
                     fill("orange");
                 }
-                else if (mat[y][x] == 5) {
+                else if (matrix[y][x] == 5) {
                     fill("magenta");
                 }
                 
@@ -78,25 +187,25 @@ function draww(mat) {
             }
         }   
     } else if(document.body.style.backgroundColor === "white") {
-        for (let y = 0; y < mat.length; y++) {
-            for (let x = 0; x < mat[y].length; x++) {
+        for (let y = 0; y < matrix.length; y++) {
+            for (let x = 0; x < matrix[y].length; x++) {
 
-                if (mat[y][x] == 1) {
+                if (matrix[y][x] == 1) {
                     fill("#acc1e3");
                 }
-                else if (mat[y][x] == 0) {
+                else if (matrix[y][x] == 0) {
                     fill("#acacac");
                 }
-                else if (mat[y][x] == 2) {
+                else if (matrix[y][x] == 2) {
                     fill("brown");
                 }
-                else if (mat[y][x] == 3) {
+                else if (matrix[y][x] == 3) {
                     fill("black");
                 }
-                else if (mat[y][x] == 4) {
+                else if (matrix[y][x] == 4) {
                     fill("orange");
                 }
-                else if (mat[y][x] == 5) {
+                else if (matrix[y][x] == 5) {
                     fill("magenta");
                 }
                 
@@ -108,5 +217,6 @@ function draww(mat) {
 
 }
 
+
 // socket.on("send static", setup);
-socket.on('send matrix', draww);
+socket.send("send matrix", matrix)

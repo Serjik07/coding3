@@ -28,9 +28,7 @@
             width: 100px;
             border: 1px solid #000;
         }
-        canvas{
-            margin-left: 550px;
-        }
+
         .info-title{
             text-align: center;
         }
@@ -44,8 +42,20 @@
             justify-content: center;
             align-items: center;
         }
+        #canvas{
+            display: flex;
+            justify-content: center
+        }
     </style>
     <title>Document</title>
+    <script src="./livingCreture.js" defer></script>
+    <script src="socket.io/socket.io.js" defer></script>
+    <script src="./gras.js" defer></script>
+    <script src="./greater.js" defer></script>
+    <script src="./predator.js" defer></script>
+    <script src="./snake.js" defer></script>
+    <script src="./thorn.js" defer></script>
+    <script src="script.js" defer></script>
 </head>
 <body style="background-color: yellow;">
     <div>
@@ -71,10 +81,9 @@
     <h1 class="title">Summer</h1>
    
     <button id="change">To change weather</button>
-    
+    <div id="canvas"></div>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.14/p5.js" defer></script>
-    <script src="socket.io/socket.io.js" defer></script>
-    <script src="script.js" defer></script>
+    
 </body>
 </html>

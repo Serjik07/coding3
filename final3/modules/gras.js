@@ -1,5 +1,4 @@
-let LivingCreature = require('./livingCreture');
-module.exports = class Grass extends LivingCreature {
+class Grass extends LivingCreature {
     random(a){
         let found = this.chooseCell(a);
         let result = Math.floor(Math.random()*found.length)

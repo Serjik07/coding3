@@ -1,5 +1,6 @@
-let LivingCreature = require('./livingCreture');
-module.exports = class Snake extends LivingCreature{
+
+
+class Snake extends LivingCreature{
     random(a){
         let found = this.chooseCell(a);
         let result = Math.floor(Math.random()*found.length)
@@ -11,7 +12,7 @@ module.exports = class Snake extends LivingCreature{
     }
     getNewCoordinates() {
         this.directions = [
-            [this.x - 1, this.y - 1],
+            [this.x - 1, this.y - 1],   
             [this.x, this.y - 1],
             [this.x + 1, this.y - 1],
             [this.x - 1, this.y],
