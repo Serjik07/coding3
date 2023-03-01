@@ -4,10 +4,15 @@ var side = 30;
 
 var socket = io();
 // body.style.bacgraundColor = green ? body.style.bacgraundColor = ornage ? body.style.bacgraundColor = blue : body.style.bacgraundColor = green
-let title = document.querySelector(".title");
-let changeButton = document.querySelector("#change");
+const title = document.querySelector(".title");
 const divs = document.querySelectorAll(".divs");
-console.log(divs)
+const canvas = document.querySelector("#defaultCanvas0")
+console.log();
+
+// canvas.addEventListener("click", (evt) => {
+//     console.log("aa");
+// })
+
 
 let matrix = [];
 function generate(matLen,gr,grEat,pr,th,sn) {
@@ -64,7 +69,6 @@ function generate(matLen,gr,grEat,pr,th,sn) {
 
 matrix = generate(15,70,20,6,9,3)
 
-changeButton.addEventListener("click", changeWeather)
 function changeWeather() {
     if(document.body.style.backgroundColor === "yellow") {
         title.innerText = "Autom";
@@ -149,14 +153,34 @@ function game(){
     }
 }
 function setup(staticObj) {
-    frameRate(5);
-    var myCanvas = createCanvas(450, 450    );
-    myCanvas.parent("#canvas")
+    frameRate(100);
+    var myCanvas = createCanvas(450, 450);
+    myCanvas.parent("#canvas");
 }
-
+function mouseClicked() {
+    if(mouseX > 0 && mouseX <= 450 && mouseY > 0 && mouseY <= 450) {
+        console.log(mouseX)
+    }
+}
 function draw() {
-    if(frameCount % 5 === 0) {
+    if(frameCount % 7 === 0) {
         changeWeather()
+    }
+    if(!snakeArr.length && !grassEaterArr.length && !predatorArr.length && frameCount >1) {
+        clear();
+        background(128);
+        describe();
+        noLoop();
+    }
+    if(frameCount % 10 == 0){
+        let stat = {
+            'grass':grassArr,
+            "grassEater":grassEaterArr,
+            "predator":predatorArr,
+            "thorn":thornArr,
+            "snake":snakeArr
+        }
+        socket.emit('send data', stat)
     }
     createObject(matrix);
     game();
@@ -219,4 +243,4 @@ function draw() {
 
 
 // socket.on("send static", setup);
-socket.send("send matrix", matrix)
+
