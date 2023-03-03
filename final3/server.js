@@ -89,7 +89,6 @@ io.on('connection', function (socket) {
     // socket.on("send matrix", static);
     // socket.on("send matrix", createObject);
     socket.on('send data', (data) => {
-        console.log(data.grass.length);
         obj.grass = data.grass.length;
         obj.grassEater = data.grassEater.length;
         obj.predator = data.predator.length;

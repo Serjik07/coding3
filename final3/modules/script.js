@@ -153,13 +153,20 @@ function game(){
     }
 }
 function setup(staticObj) {
-    frameRate(100);
+    frameRate(5);
     var myCanvas = createCanvas(450, 450);
     myCanvas.parent("#canvas");
 }
 function mouseClicked() {
     if(mouseX > 0 && mouseX <= 450 && mouseY > 0 && mouseY <= 450) {
-        console.log(mouseX)
+        let addX = Math.floor(mouseX / 30);
+        let addY = Math.floor(mouseY / 30);
+        // console.log(addX);
+        // console.log(addY);
+        matrix[addX][addY] = 2;
+        console.log(matrix[addX][addY])
+        // grassEaterArr.push(new GrassEater(addX,addY))
+        createObject(matrix);
     }
 }
 function draw() {
@@ -169,10 +176,13 @@ function draw() {
     if(!snakeArr.length && !grassEaterArr.length && !predatorArr.length && frameCount >1) {
         clear();
         background(128);
+        fill("black")
+        textSize(50)
+        text("Finish",165,225)
         describe();
         noLoop();
     }
-    if(frameCount % 10 == 0){
+    if(frameCount % 7 == 0){
         let stat = {
             'grass':grassArr,
             "grassEater":grassEaterArr,
