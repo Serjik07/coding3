@@ -5,11 +5,12 @@ var app = express();
 var server = require('http').createServer(app);
 
 var io = require('socket.io')(server);
-
+var file = "static.json";
 app.use(express.static("./modules"));
-
+// fs.writeFile(file,'')
+fs.truncate(file, 0, function(){console.log('done')})
 app.get('/', function (req, res) {
-
+    
     res.redirect('index.html');
 
 });
@@ -18,7 +19,7 @@ server.listen(3000);
 
 
 
-let file = "static.json";
+
 // function static(mat) {
 //     for (let y = 0; y < mat.length; y++) {
 //         for (let x = 0; x < mat[y].length; x++) {
@@ -94,7 +95,9 @@ io.on('connection', function (socket) {
         obj.predator = data.predator.length;
         obj.thorn = data.thorn.length;
         obj.snake = data.snake.length;
+    
         // fs.appendFileSync(file, "\n[" + JSON.stringify(obj) + "]");
+
         fs.appendFileSync(file,JSON.stringify(obj)+"\n")
     })
 });

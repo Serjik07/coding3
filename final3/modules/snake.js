@@ -36,7 +36,7 @@ class Snake extends LivingCreature{
 
             var newSnake = new Snake(newX, newY);
             snakeArr.push(newSnake);
-            this.energy = 10
+            this.energy = 8
         }
     }
     move() {
@@ -88,7 +88,11 @@ class Snake extends LivingCreature{
                     break;
                 }
             }
-        } else {
+            if(this.energy >= 13) {
+                this.mul();
+            }
+        }
+         else {
             this.move()
         }
     }
